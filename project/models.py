@@ -8,7 +8,7 @@ class Subject(models.Model):
     collage = models.CharField(max_length=100)
     level = models.CharField(max_length=7)
     def get_absolute_url(self):
-        return reverse('project:cource', kwargs={'pk':self.pk})
+        return reverse('project:course', kwargs={'pk':self.pk})
     def __unicode__(self):
         return self.name + '-' + self.collage
 
@@ -17,33 +17,29 @@ class Course(models.Model):
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=7)
     description = models.TextField(max_length=1000)
-    pupdate = models.DateTimeField(auto_now_add=True)
+    pup_date = models.DateTimeField(auto_now_add=True)
     location = models.TextField(max_length=1000)
-
     def __unicode__(self):
         return self.title
 
 class Lecture(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    code = models.CharField(max_length=7)
+    course = models.ForeignKey(Course)
     title = models.CharField(max_length=100)
     sources = models.TextField(max_length=500)
     objectives = models.TextField(max_length=500)
-    pupdate = models.DateTimeField(auto_now_add=True)
+    pup_date = models.DateTimeField(auto_now_add=True)
     link = models.URLField()
-    is_favorite = models.BooleanField(default=False)
-
     def __unicode__(self):
         return self.title
 
 class Comment_c (models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    auther = models.CharField(max_length=50)
+    course = models.ForeignKey(Course)
+    author = models.CharField(max_length=50)
     body = models.TextField()
     pup_date = models.DateTimeField(auto_now_add=True)
 
 class Comment_l (models.Model):
-    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE)
-    auther = models.CharField(max_length=50)
+    lecture = models.ForeignKey(Lecture)
+    author = models.CharField(max_length=50)
     body = models.TextField()
     pup_date = models.DateTimeField(auto_now_add=True)

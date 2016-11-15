@@ -4,8 +4,9 @@ from django.views.generic import View
 from django.views import generic
 from project.models import Subject, Course, Lecture
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from .forms import Userform
+from django.http import HttpResponseRedirect
 
 class UserFormView(View):
     form_class = Userform
@@ -89,3 +90,26 @@ class LectureDelete(DeleteView):
     model = Lecture
     success_url = reverse_lazy('project:index')
 
+def comment_l(request, lecture_id):
+    lecture= get_object_or_404(Lecture, id=lecture_id)
+    lecture.comment_l_set.all()
+    user_comment=request.POST['comment']
+    author = request.POST['author']
+    comment_l.objects.create(
+        lecture=lecture,
+        author=author,
+        body=user_comment,
+    )
+    return HttpResponseRedirect(reverse('show_lecture', args=(lecture_id)))
+
+def comment_c(request, course_id):
+    course= get_object_or_404(Course, id=course_id)
+    course.comment_l_set.all()
+    user_comment=request.POST['comment']
+    author = request.POST['author']
+    comment_c.objects.create(
+        course=course,
+        author=author,
+        body=user_comment,
+    )
+    return HttpResponseRedirect(reverse('show_lecture', args=(course_id)))
