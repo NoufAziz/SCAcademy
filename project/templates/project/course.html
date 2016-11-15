@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>  Students Club Academy </title>
+    <title>  {{ Course.title }} </title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/736564164626259968/xqV0l1qj.jpg">
     <!-- Loads the path to your static files-->
     {% load static %}
@@ -64,15 +64,15 @@
     </div>
 </nav>
 
-    {% if all_subjects %}
-        <ul>
-        {% for Subject in all_subjects %}
-            <li><a href="{% url 'project:show_subject' %}" > {{ Subject.name }}</a> ({{ Subject.collage }}) </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p> No subjects are available yet. </p>
+    <h1> {{ Course.title }} + '-' + {{ Course.code }}</h1>
+    <h2> {{ Course.location }}</h2>
+    <h4> {{ Course.description }}</h4>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
     {% endif %}
+
+
 </body>
 </html>
 

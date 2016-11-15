@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> {% block title %} Students Club Academy {% endblock %} </title>
+    <title>  Students Club Academy </title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/736564164626259968/xqV0l1qj.jpg">
     <!-- Loads the path to your static files-->
     {% load static %}
@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Font Awesome glyphicons ç -->
-    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> -->
 
 <style>
 /* Video Background */
@@ -51,25 +49,16 @@
                 <li>
                     <a href="{% url 'project:index' %}"> <span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; Subject </a>
                 </li>
-                <li>
-                    <a href="{% url 'project:cource' %}"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp; Cource </a>
-                </li>
-                <li>
-                    <a href="{% url 'project:show_lecture' %}"> <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp; Lecture </a>
-                </li>
             </ul>
 
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="{% url 'project:add-cource' %}"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Cource </a>
+                    <a href="{% url 'project:add-course' %}"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Course </a>
                 </li>
                 <li>
                     <a href="{% url 'project:add-lecture' %}"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Lecture </a>
                 </li>
-                <!--<li>
-                   <a href="{% url 'project:#' %}"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; LogOut </a>
-                </li>-->
             </ul>
         </div>
     </div>

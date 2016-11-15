@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.views import generic
-from project.models import Subject, Cource, Lecture
+from project.models import Subject, Course, Lecture
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .forms import Userform
@@ -40,62 +40,52 @@ class IndexView(generic.ListView):
 
 class SubjectView(generic.ListView):
     template_name = 'project/subject.html'
-    context_object_name = "all_cources"
+    context_object_name = "all_courses"
     def get_queryset(self):
-        return Cource.objects.all()
+        return Course.objects.all()
 
 class ShowSubjectView(generic.DetailView):
     model = Subject
     template_name = 'project/subject.html'
     subject_id = Subject.pk
 
-class CourceView(generic.ListView):
-    template_name = 'project/cource.html'
+class CourseView(generic.ListView):
+    template_name = 'project/course.html'
     context_object_name = "all_lectures"
     def get_queryset(self):
         return Lecture.objects.all()
 
-class ShowCourceView(generic.DetailView):
-    model = Cource
-    template_name = 'project/cource.html'
-    cource_id = Cource.pk
+class ShowCourseView(generic.DetailView):
+    model = Course
+    template_name = 'project/course.html'
+    course_id = Course.pk
 
 class ShowLectureView(generic.DetailView):
     model = Lecture
     template_name = 'project/show_lecture.html'
     lecture_id = Lecture.pk
 
-class CourceCreate(CreateView):
-    model = Cource
-    fields = ['subject','title', 'descrbtion', 'pupdate', 'location' ]
-class CourceUpdate(UpdateView):
-    model = Cource
-    fields = ['subject','title', 'descrbtion', 'pupdate', 'location' ]
-class CourceDelete(DeleteView):
-    model = Cource
+class CourseCreate(CreateView):
+    model = Course
+    fields = ['subject','title', 'description', 'location' ]
+    success_url = reverse_lazy('project:index')
+class CourseUpdate(UpdateView):
+    model = Course
+    fields = ['subject','title', 'description', 'location' ]
+    success_url = reverse_lazy('project:index')
+class CourseDelete(DeleteView):
+    model = Course
     success_url = reverse_lazy('project:index')
 
 class LectureCreate(CreateView):
     model = Lecture
-    fields = ['cource','title', 'sources','objectives', 'pupdate', 'link' ]
+    fields = ['course','title', 'sources','objectives', 'link' ]
+    success_url = reverse_lazy('project:index')
 class LectureUpdate(UpdateView):
     model = Lecture
-    fields = ['cource','title', 'sources','objectives', 'pupdate', 'link' ]
+    fields = ['course','title', 'sources','objectives', 'link' ]
+    success_url = reverse_lazy('project:index')
 class LectureDelete(DeleteView):
     model = Lecture
     success_url = reverse_lazy('project:index')
-
-def favorite(request,lecture_id):
-    lecture = get_object_or_404(Lecture, pk=lecture_id)
-    try:
-        selected_lecture = Cource.lecture_set.get(pk=request.POST['lecture'])
-    except(KeyError, Lecture.DoesNotExist):
-        return render(request, 'project/show_lecture.html', {
-            'lecture': lecture,
-            'error_message': 'You did not select a valid lecture',
-        })
-    else:
-        selected_lecture.is_favorite = True
-        selected_lecture.save()
-        return render(request, 'project/show_lecture.html', {'lecture': lecture})
 

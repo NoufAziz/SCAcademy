@@ -5,36 +5,38 @@ from django.core.urlresolvers import reverse
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=7)
     collage = models.CharField(max_length=100)
     level = models.CharField(max_length=7)
     def get_absolute_url(self):
         return reverse('project:cource', kwargs={'pk':self.pk})
+    def __unicode__(self):
+        return self.name + '-' + self.collage
 
-class Cource(models.Model):
+class Course(models.Model):
     subject = models.ForeignKey(Subject)
     title = models.CharField(max_length=100)
-    descrbtion = models.TextField(max_length=1000)
-    pupdate = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(max_length=1000)
+    #pupdate = models.DateTimeField(auto_now_add=True)
     location = models.TextField(max_length=1000)
 
     def __unicode__(self):
-        return self.title + "-" +self.subject
+        return self.title
 
 class Lecture(models.Model):
-    cource = models.ForeignKey(Cource, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    code = models.CharField(max_length=7)
     title = models.CharField(max_length=100)
     sources = models.TextField(max_length=500)
     objectives = models.TextField(max_length=500)
-    pupdate = models.DateTimeField(auto_now_add=True)
+    #pupdate = models.DateTimeField(auto_now_add=True)
     link = models.URLField()
     is_favorite = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.title + "-" +self.cource
+        return self.title
 
 class Comment_c (models.Model):
-    cource = models.ForeignKey(Cource, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     auther = models.CharField(max_length=50)
     body = models.TextField()
     pup_date = models.DateTimeField(auto_now_add=True)

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>  Students Club Academy </title>
+    <title>  Add Course </title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/736564164626259968/xqV0l1qj.jpg">
     <!-- Loads the path to your static files-->
     {% load static %}
@@ -64,15 +64,30 @@
     </div>
 </nav>
 
-    {% if all_subjects %}
-        <ul>
-        {% for Subject in all_subjects %}
-            <li><a href="{% url 'project:show_subject' %}" > {{ Subject.name }}</a> ({{ Subject.collage }}) </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p> No subjects are available yet. </p>
-    {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-defult">
+                <div class="panel-body">
+
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'project/form-template.html' %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success">Submit</button>
+
+                        </div>
+                    </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 
