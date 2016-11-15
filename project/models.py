@@ -15,8 +15,9 @@ class Subject(models.Model):
 class Course(models.Model):
     subject = models.ForeignKey(Subject)
     title = models.CharField(max_length=100)
+    code = models.CharField(max_length=7)
     description = models.TextField(max_length=1000)
-    #pupdate = models.DateTimeField(auto_now_add=True)
+    pupdate = models.DateTimeField(auto_now_add=True)
     location = models.TextField(max_length=1000)
 
     def __unicode__(self):
@@ -28,7 +29,7 @@ class Lecture(models.Model):
     title = models.CharField(max_length=100)
     sources = models.TextField(max_length=500)
     objectives = models.TextField(max_length=500)
-    #pupdate = models.DateTimeField(auto_now_add=True)
+    pupdate = models.DateTimeField(auto_now_add=True)
     link = models.URLField()
     is_favorite = models.BooleanField(default=False)
 
