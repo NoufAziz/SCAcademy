@@ -17,6 +17,7 @@ class Cource(models.Model):
     descrbtion = models.TextField(max_length=1000)
     pupdate = models.DateTimeField(auto_now_add=True)
     location = models.TextField(max_length=1000)
+
     def __unicode__(self):
         return self.title + "-" +self.subject
 
@@ -28,6 +29,7 @@ class Lecture(models.Model):
     pupdate = models.DateTimeField(auto_now_add=True)
     link = models.URLField()
     is_favorite = models.BooleanField(default=False)
+
     def __unicode__(self):
         return self.title + "-" +self.cource
 
@@ -42,11 +44,3 @@ class Comment_l (models.Model):
     auther = models.CharField(max_length=50)
     body = models.TextField()
     pup_date = models.DateTimeField(auto_now_add=True)
-
-#class View(models.Model):
- #   Lecture = models.ForeignKey(Lecture)
-  #  pass
-
-
-#class Evaluation(models.Model):
- #   pass

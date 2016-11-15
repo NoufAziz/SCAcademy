@@ -13,6 +13,8 @@ class UserFormView(View):
 
     def get(self, request):
         form = self.form_class(None)
+        return render(request, self.template_name, {'form':form})
+
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -32,7 +34,7 @@ class UserFormView(View):
 
 class IndexView(generic.ListView):
     template_name = 'project/index.html'
-    context_object_name = "all_subjects"
+    context_object_name = 'all_subjects'
     def get_queryset(self):
         return Subject.objects.all()
 
@@ -45,6 +47,7 @@ class SubjectView(generic.ListView):
 class ShowSubjectView(generic.DetailView):
     model = Subject
     template_name = 'project/subject.html'
+    subject_id = Subject.pk
 
 class CourceView(generic.ListView):
     template_name = 'project/cource.html'
@@ -55,10 +58,12 @@ class CourceView(generic.ListView):
 class ShowCourceView(generic.DetailView):
     model = Cource
     template_name = 'project/cource.html'
+    cource_id = Cource.pk
 
 class ShowLectureView(generic.DetailView):
     model = Lecture
-    template_name = 'project/lecture.html'
+    template_name = 'project/show_lecture.html'
+    lecture_id = Lecture.pk
 
 class CourceCreate(CreateView):
     model = Cource
@@ -85,12 +90,12 @@ def favorite(request,lecture_id):
     try:
         selected_lecture = Cource.lecture_set.get(pk=request.POST['lecture'])
     except(KeyError, Lecture.DoesNotExist):
-        return render(request, 'project/lecture.html', {
+        return render(request, 'project/show_lecture.html', {
             'lecture': lecture,
             'error_message': 'You did not select a valid lecture',
         })
     else:
         selected_lecture.is_favorite = True
         selected_lecture.save()
-        return render(request, 'project/lecture.html', {'lecture': lecture})
+        return render(request, 'project/show_lecture.html', {'lecture': lecture})
 
