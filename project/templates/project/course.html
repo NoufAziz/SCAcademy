@@ -68,8 +68,14 @@
     <h2> {{ Course.location }}</h2>
     <h4> {{ Course.description }}</h4>
 
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
+    {% if all_lectures %}
+        <ul>
+        {% for Lecture in all_lectures %}
+            <li><a href="{% url 'project:show_lecture' %}">{{ Lecture.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No lectures are available yet.</p>
     {% endif %}
 
 

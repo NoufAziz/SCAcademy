@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^course/$', views.CourseView.as_view(), name='course'),
     #/StudentsClubAcademy/Course/
 
-    url(r'^course/(?P<cource_id>[0-9]+)/$', views.ShowCourseView.as_view(), name='show_course'),
+    url(r'^course/(?P<course_id>[0-9]+)/$', views.ShowCourseView.as_view(), name='show_course'),
     #/StudentsClubAcademy/Course/1/
 
     url(r'^course/add/$', views.CourseCreate.as_view(), name='add-course'),

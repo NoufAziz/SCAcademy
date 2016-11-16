@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.urlresolvers import reverse
-#from django.contrib.auth.models import User
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
@@ -15,7 +14,6 @@ class Subject(models.Model):
 class Course(models.Model):
     subject = models.ForeignKey(Subject)
     title = models.CharField(max_length=100)
-    code = models.CharField(max_length=7)
     description = models.TextField(max_length=1000)
     pup_date = models.DateTimeField(auto_now_add=True)
     location = models.TextField(max_length=1000)
@@ -35,11 +33,11 @@ class Lecture(models.Model):
 class Comment_c (models.Model):
     course = models.ForeignKey(Course)
     author = models.CharField(max_length=50)
-    body = models.TextField()
+    body = models.TextField(max_length=5000)
     pup_date = models.DateTimeField(auto_now_add=True)
 
 class Comment_l (models.Model):
     lecture = models.ForeignKey(Lecture)
     author = models.CharField(max_length=50)
-    body = models.TextField()
+    body = models.TextField(max_length=5000)
     pup_date = models.DateTimeField(auto_now_add=True)
